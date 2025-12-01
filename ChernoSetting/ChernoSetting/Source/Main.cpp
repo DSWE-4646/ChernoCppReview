@@ -1,35 +1,14 @@
 #include<iostream>
 #include<string>
 
-class Entity
-{
-public:
-	std::string GetName() { return "Entity"; }
-};
-
-class player : public Entity
-{
-private:
-	std::string m_Name;
-public:
-	player(const std::string& name)
-		: m_Name(name) {}
-
-	std::string GetName() {}
-};
-
-void PrintName(Entity* entity)
-{
-	std::cout << entity->GetName() << std::endl;
-}
-
 int main()
 {
-	Entity* e = new Entity();
-	PrintName(e);
+	int example[5];
+	int* ptr = example;
+	for (int i = 0; i < 5; i++)
+		example[i] = 2;
 
-	Entity* p = new player("Cherno");
-	PrintName(p);
-
-	std::cin.get();
+	example[2] = 5;
+	*(ptr + 8) = 6;
+	*(int*)((char*)ptr + 12) = 6;
 }
