@@ -4,6 +4,8 @@
 *.vcxproj.filters # 筛选器文件
 *.vcxproj.user # 用户配置文件
 .vs/           # VS 缓存目录
+ChernoSetting/.vs/
+ChernoSetting/bin/
 
 # ===================== 2. 忽略所有编译产物（核心，彻底删除冗余） =====================
 # 编译输出目录
