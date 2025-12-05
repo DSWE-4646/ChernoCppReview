@@ -3,13 +3,13 @@
 
 int main()
 {
-	const char* name = "Katze";
-	
-	using namespace std::string_literals;
-	std::u32string name0 = U"Cherno"s + U"hello";
-	const char* example = R"(Line1
-Line2
-Line3)";
+	const int MAX_AGE = 90;
+
+	int* const a = new int;
+
+	*a = 2;
+	a = (int*)&MAX_AGE; // This is bad practice and leads to undefined behavior
+	std::cout << *a << std::endl;
 
 	std::cin.get();
 }
