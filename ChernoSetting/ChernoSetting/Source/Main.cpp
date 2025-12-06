@@ -1,35 +1,48 @@
 #include<iostream>
 //#include<string>
 
-class Entity
+class Example
 {
-	mutable int m_X, m_Y;
-
 public:
-	int GetX() const
+	Example()
 	{
-		std::cout << m_X << std::endl;
-		return m_X;
+		std::printf("Initial Example\n");
 	}
 
-	void SetX(int x) const
+	Example(int x)
 	{
-		m_X = x;
+		std::cout << ("Initial Example and x ist ") << x << std::endl;
+		//std::printf("Initial Example and x ist %d", x);
 	}
+
 };
 
-void PrintrEntityX(const Entity& e)
+class Entity
 {
-	//e = nullptr;
-	e.SetX(3);
-	e.GetX();
-	//e.GetX();
-	std::cout<<e.GetX();
-}
+	
+
+public:
+	std::string m_Name;
+	Example m_Example;
+
+	Entity(std::string& name)
+		: m_Name("Wakawaka")
+	{
+
+	}
+
+	Entity()
+	{
+		m_Name = "name";
+		m_Example = Example(5);
+	}
+
+};
+
 
 int main()
 {
 	Entity e;
-
+	std::printf("Name is %s\n", e.m_Name.c_str());
 	std::cin.get();
 }
