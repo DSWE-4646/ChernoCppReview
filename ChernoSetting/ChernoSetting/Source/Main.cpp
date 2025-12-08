@@ -1,29 +1,12 @@
 #include<iostream>
 //#include<string>
 
-class Example
-{
-public:
-	Example()
-	{
-		std::printf("Initial Example\n");
-	}
-
-	Example(int x)
-	{
-		std::cout << ("Initial Example and x ist ") << x << std::endl;
-		//std::printf("Initial Example and x ist %d", x);
-	}
-
-};
-
 class Entity
 {
 	
 
 public:
 	std::string m_Name;
-	Example m_Example;
 
 	Entity(std::string& name)
 		: m_Name("Wakawaka")
@@ -33,8 +16,8 @@ public:
 
 	Entity()
 	{
-		m_Name = "name";
-		m_Example = Example(5);
+		m_Name = "Wagawaga";
+		
 	}
 
 };
@@ -42,7 +25,13 @@ public:
 
 int main()
 {
-	Entity e;
-	std::printf("Name is %s\n", e.m_Name.c_str());
+	Entity* e;
+	{
+		Entity* entity = new Entity;
+		e = entity;
+	}
+	
+	std::cout << e->m_Name << std::endl;
 	std::cin.get();
+	delete e;
 }
