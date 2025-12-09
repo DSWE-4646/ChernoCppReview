@@ -25,11 +25,7 @@ public:
 
 int main()
 {
-	Entity* e;
-	{
-		Entity* entity = new Entity;
-		e = entity;
-	}
+	Entity* b = new Entity[50];
 	
 	std::cout << e->m_Name << std::endl;
 	std::cin.get();
