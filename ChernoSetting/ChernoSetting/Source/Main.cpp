@@ -7,27 +7,24 @@ class Entity
 
 public:
 	std::string m_Name;
+	int m_Age;
 
 	Entity(std::string& name)
-		: m_Name("Wakawaka")
+		: m_Name("name"), m_Age(-1)
 	{
 
 	}
 
-	Entity()
-	{
-		m_Name = "Wagawaga";
-		
-	}
+	Entity(int age)
+		:m_Name("Unkonwn"), m_Age(age){ }
 
 };
 
 
 int main()
 {
-	Entity* b = new Entity[50];
-	
-	std::cout << e->m_Name << std::endl;
+	Entity a = Entity("wagagwaga");
+	Entity b = Entity(23);
+
 	std::cin.get();
-	delete e;
 }
