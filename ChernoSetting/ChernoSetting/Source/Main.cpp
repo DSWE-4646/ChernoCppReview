@@ -5,34 +5,40 @@ struct Entity
 {
 	int x, y;
 
-	Entity(int x, int y)
+};
+
+class ScopedPtr
+{
+private:
+	Entity* m_Ptr;
+public:
+	ScopedPtr(Entity* Ptr)
+		:m_Ptr(Ptr)
 	{
-		//x = x;
-		Entity* e = this;
-		this->x = x;
-		e->x = x;
-		(*this).x = x;
-
-		PrintEntity(*this);
-
-		delete this;
+		std::printf("Initial ScopePtr\n");
 	}
-
-	int GetX() const 
+	~ScopedPtr()
 	{
-		const Entity* e = this;
+		delete m_Ptr;
+		std::printf("delete ScopePtr");
+	}
+	Entity& operator*()
+	{
+		return *m_Ptr;
 	}
 };
 
-void PrintEntity(const Entity& e)
+int* CreateArray()
 {
-
+	int array[50];
+	return array;
 }
-
-
 
 int main()
 {
+	{
+	ScopedPtr e = new Entity();
+	}
 	
 	std::cin.get();
 }
