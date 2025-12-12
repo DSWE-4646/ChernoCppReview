@@ -2,45 +2,57 @@
 #include<string>
 #include<memory>
 
-class Entity
+class String
 {
 private:
-	Entity* m_Ptr;
+	char* m_Buffer;
+	unsigned int m_Size;
 public:
-	Entity()
+	String(const char* string)
 	{
-		std::printf("Initial ScopePtr\n");
+		m_Size = strlen(string);
+		//m_Buffer = new char[m_Size + 1];
+		m_Buffer = new char[m_Size];
+		memcpy(m_Buffer, string, m_Size);
+		//m_Buffer[m_Size] = 0;
+	}
+	friend std::ostream& operator<<(std::ostream& stream, const String& string);
+
+	char& operator[](unsigned int index) 
+	{
+		return m_Buffer[index];
 	}
 
-	~Entity()
+	~String()
 	{
-		std::printf("delete ScopePtr");
+		delete[] m_Buffer;
 	}
 
-	void Print() {}
+	String(const String& other)
+	{
+		m_Size = other.m_Size;
+		//m_Buffer = new char[m_Size + 1];
+		m_Buffer = new char[m_Size];
+		memcpy(m_Buffer, other.m_Buffer, m_Size);
+		//m_Buffer[m_Size] = 0;
+	}
 };
 
-int* CreateArray()
+std::ostream& operator<<(std::ostream& stream, const String& string)
 {
-	int array[50];
-	return array;
+	stream << string.m_Buffer;
+	return stream;
 }
 
 int main()
 {
-	{
-	//std::unique_ptr<Entity> entity(new Entity());
-	std::unique_ptr<Entity> entity = std::make_unique<Entity>(); //为了异常安全
-	//std::unique_ptr<Entity> e0 = entity;
+	String string = "Wagawaga"; 
+	String string2 = string;
 
-	{
-		std::shared_ptr<Entity> sharedEntity = std::make_shared<Entity>(); //为了异常安全
-		std::shared_ptr<Entity> e0 = sharedEntity;
-		std::weak_ptr<Entity> weakEntity = sharedEntity;
-		entity->Print();
-	}
-	
-	}
+	string2[2] = 'k';
+
+	std::cout << string << std::endl;
+	std::cout << string2 << std::endl;
 	
 	std::cin.get();
 }
