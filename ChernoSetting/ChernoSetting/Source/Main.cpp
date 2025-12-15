@@ -2,39 +2,16 @@
 #include<string>
 #include<memory>
 
-class Entity
+struct VectorSample
 {
-
-public:
-	void PrintContent()
-	{
-		std::cout << "This is ene Entity Class" << std::endl;
-	}
+	int x, y, z;
+	long long int i;
 };
 
-class ScopedPtr
-{
-private:
-	Entity* EntityPtr;
-public:
-	ScopedPtr(Entity * Ptr)
-		: EntityPtr(Ptr)
-	{ }
-
-	~ScopedPtr()
-	{
-		delete EntityPtr;
-	}
-
-	Entity* operator->()
-	{
-		return EntityPtr;
-	}
-};
 
 int main()
 {
-	ScopedPtr e(new Entity());
-	e->PrintContent();
+	int offset = (int)&((VectorSample*)0)->i;
+	std::cout<< offset<< std::endl;
 	std::cin.get();
 }
