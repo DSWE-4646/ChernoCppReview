@@ -2,48 +2,39 @@
 #include<string>
 #include<memory>
 
-class String
+class Entity
 {
-private:
-	char* m_Buffer;
-	unsigned int m_Size;
+
 public:
-	String(const char* string)
+	void PrintContent()
 	{
-		m_Size = strlen(string);
-		m_Buffer = new char[m_Size + 1];
-		memcpy(m_Buffer, string, m_Size + 1);
-		//m_Buffer[m_Size] = 0;
+		std::cout << "This is ene Entity Class" << std::endl;
 	}
-	friend std::ostream& operator<<(std::ostream& stream, const String& string);
-
-	char& operator[](unsigned int index) 
-	{
-		return m_Buffer[index];
-	}
-
-	~String()
-	{
-		delete[] m_Buffer;
-	}
-
-	String(const String& other) : m_Buffer((other.m_Buffer)), m_Size(other.m_Size) {};
 };
 
-std::ostream& operator<<(std::ostream& stream, const String& string)
+class ScopedPtr
 {
-	stream << string.m_Buffer;
-	return stream;
-}
+private:
+	Entity* EntityPtr;
+public:
+	ScopedPtr(Entity * Ptr)
+		: EntityPtr(Ptr)
+	{ }
+
+	~ScopedPtr()
+	{
+		delete EntityPtr;
+	}
+
+	Entity* operator->()
+	{
+		return EntityPtr;
+	}
+};
 
 int main()
 {
-	String string = "Wagawaga"; 
-	String string2 = string;
-
-	string2[2] = 'k';
-	std::cout << string << std::endl;
-	std::cout << string2 << std::endl;
-	
+	ScopedPtr e(new Entity());
+	e->PrintContent();
 	std::cin.get();
 }
