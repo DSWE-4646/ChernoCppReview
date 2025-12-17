@@ -23,6 +23,9 @@ int main()
 {
 
 	std::vector <Vertex> vertices;
+
+	vertices.emplace_back( 3, 2, 1 );
+	vertices.emplace_back({ 6, 5, 4 });
 	
 	vertices.push_back({ 3, 2, 1 });
 	vertices.push_back({ 6, 5, 4 });
