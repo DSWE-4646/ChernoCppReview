@@ -1,20 +1,20 @@
 #include<iostream>
+#include<array>
+#include<string>
 
-void pass_shader(std::string* out_vertex_source, std::string* out_fragment_source)
+std::array<std::string, 2> pass_shader()
 {
 	std::string vshader = "顶点着色器代码";
 	std::string fshader = "片段着色器代码";
 	
-	*out_vertex_source = vshader;
-	*out_fragment_source = fshader;
+	return { vshader, fshader };
 }
 
 int main()
 {
-	std::string vertex_shader_code;
-	std::string fragment_shader_code;
-	pass_shader(&vertex_shader_code, &fragment_shader_code);
-	std::cout << "Vertex Shader Code: " << vertex_shader_code << std::endl;
-	std::cout << "Fragment Shader Code: " << fragment_shader_code << std::endl;
+	//auto [vertex_shader_code, fragment_shader_code] = pass_shader();  // C++17 structured binding
+	auto shaders = pass_shader(); // C++14 compatible
+	std::cout << "Vertex Shader Code: " << shaders[0] << std::endl;
+	std::cout << "Fragment Shader Code: " << shaders[0] << std::endl;
 	return 0;
 }
