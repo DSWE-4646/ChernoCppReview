@@ -2,11 +2,11 @@
 #include<array>
 #include<string>
 
-template<int N>
+template<typename T, int N>
 class Array
 {
 private:
-	int m_Array[N];
+	T m_Array[N];
 public:
 	int GetSize() const { return N; }
 };
@@ -14,7 +14,7 @@ public:
 
 int main()
 {
-	Array<5> a;
+	Array<std::string, 5> a;
 	std::cout << "Array size: " << a.GetSize() << std::endl;
 	return 0;
 }
