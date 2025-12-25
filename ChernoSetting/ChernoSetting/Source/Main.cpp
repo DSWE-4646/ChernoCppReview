@@ -1,19 +1,15 @@
 #include <iostream>
-
-
-void HelloWorld() {
-	std::cout << "Hello, World!" << std::endl;
+void PrintValue(int a) {
+    std::cout << "Value: " << a << std::endl;
 }
-
-void PrintNumber(int number) {
-	std::cout << "Number: " << number;
-}
-
+// 方案1：typedef定义别名（C风格，兼容旧代码）
+typedef void (*PrintFuncType)(int);
+// 方案2：using定义别名（C++11+，推荐，更易读）
+using PrintFuncAlias = void (*)(int);
 int main() {
-	void(*func1)() = HelloWorld;
-	func1();
-	(*func1)();
-
-	void(*PrintNummer)(int) = PrintNumber;
-	PrintNummer(42);
+    PrintFuncType func1 = PrintValue;
+    PrintFuncAlias func2 = PrintValue;
+    func1(10);  // 输出：Value: 10
+    func2(20);  // 输出：Value: 20
+    return 0;
 }
