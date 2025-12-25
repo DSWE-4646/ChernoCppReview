@@ -1,21 +1,19 @@
 #include <iostream>
-#include<array>
-#include <algorithm>
 
-void printArray(const std::array<int, 5>& a) {
-	for (size_t i = 0; i < a.size(); i++) {
-		std::cout << a[i] << " ";
-	}
-	std::cout << std::endl;
+
+void HelloWorld() {
+	std::cout << "Hello, World!" << std::endl;
+}
+
+void PrintNumber(int number) {
+	std::cout << "Number: " << number;
 }
 
 int main() {
-	std::array<int, 5> arr = { 7, 2, 5, 9, 3 };
-	std::array<int, 3> arr2 = { 1, 2, 3};
+	void(*func1)() = HelloWorld;
+	func1();
+	(*func1)();
 
-	for (auto var : arr) {
-		std::cout << var << std::endl;
-	}
-	
-
+	void(*PrintNummer)(int) = PrintNumber;
+	PrintNummer(42);
 }
