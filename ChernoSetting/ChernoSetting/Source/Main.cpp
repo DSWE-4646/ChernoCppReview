@@ -1,15 +1,30 @@
 #include <iostream>
-void PrintValue(int a) {
-    std::cout << "Value: " << a << std::endl;
+#include<vector>
+
+using CallbackFunc = void(*)(int);
+void ForEach(const std::vector<int>& values, CallbackFunc CallFunc)
+{
+    for (auto val : values)
+        CallFunc(val);
 }
-// 方案1：typedef定义别名（C风格，兼容旧代码）
-typedef void (*PrintFuncType)(int);
-// 方案2：using定义别名（C++11+，推荐，更易读）
-using PrintFuncAlias = void (*)(int);
-int main() {
-    PrintFuncType func1 = PrintValue;
-    PrintFuncAlias func2 = PrintValue;
-    func1(10);  // 输出：Value: 10
-    func2(20);  // 输出：Value: 20
+
+void PrintValue(int value)
+{
+    std::cout << "Value: " << value << std::endl;
+}
+
+void PrintSquare(int value)
+{
+    std::cout << "Square: " << value * value << std::endl;
+}
+
+int main()
+{
+	std::vector<int> values = { 1, 2, 3, 4, 5 };
+    std::cout << "原始元素：";
+	ForEach(values, PrintValue);
+    std::cout << "\n元素平方：";
+	ForEach(values, PrintSquare);
+
     return 0;
 }
