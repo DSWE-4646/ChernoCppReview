@@ -25,6 +25,7 @@ int main()
 	ForEach(values, PrintValue);
     std::cout << "\nÔªËØÆ½·½£º";
 	ForEach(values, PrintSquare);
+    ForEach(values, [](int val) {std::cout << "\nLambda: " << val * 5 << std::endl; });
 
     return 0;
 }
