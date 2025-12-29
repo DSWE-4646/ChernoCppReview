@@ -1,14 +1,26 @@
 #include <iostream>
-#include <vector>
-#include <algorithm> // std::find_if头文件
-int main() {
-    std::vector<int> values = { 1, 0, 4, 9, 3 };
-    // std::find_if：查找第一个满足条件的元素，Lambda作为谓词
-    auto it = std::find_if(values.begin(), values.end(), [](int val) {
-        return val > 3; // 条件：元素大于3
-        });
-    if (it != values.end()) {
-        std::cout << "第一个大于3的元素：" << *it << std::endl; // 输出：5
+
+namespace apple 
+{
+    namespace v1
+    {
+        void test() {
+            std::cout << "apple namespace v1" << std::endl;
+        }
     }
+    
+    inline namespace v2
+    {
+        void test() {
+            std::cout << "apple namespace v2" << std::endl;
+        }
+    }
+}
+int main() {
+    using apple::test;
+	using oldversion = apple::v1;
+	apple::test(); // 调用的是v2版本的test函数
+	oldversion::test(); // 调用的是v1版本的test函数
+
     return 0;
 }
