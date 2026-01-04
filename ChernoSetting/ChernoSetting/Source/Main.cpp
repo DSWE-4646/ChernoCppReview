@@ -2,26 +2,33 @@
 
 int main() 
 {
-    const int Rows = 5;
-    const int Cols = 5;
+    const int X = 5;
+    const int Y = 5;
+    const int Z = 5;
 
-    int ** Dynamic2D = new int* [Rows];
-    for (int i = 0; i < Rows; i++)
+    int*** Dynamic3D = new int** [X];
+    for (int i = 0; i < X; i++)
     {
-        Dynamic2D[i] = new int[Cols];
+        Dynamic3D[i] = new int* [Y];
+        for (int j = 0; j < Y; j++)
+        Dynamic3D[i][j] = new int[Z];
     }
 
-    Dynamic2D[0][0] = 1;
-    Dynamic2D[3][9] = 25;
+    Dynamic3D[0][0][0] = 1;
+    Dynamic3D[3][2][3] = 25;
 
-    std::cout << Dynamic2D[0][0] << std::endl;
-    std::cout << Dynamic2D[3][9] << std::endl;
+    std::cout << Dynamic3D[0][0] << '\n';
+    std::cout << Dynamic3D[3][2][3] << '\n';
 
-    for (int i = 0; i < Rows; i++)
+    for (int i = 0; i < X; i++)
     {
-        delete[] Dynamic2D[i];
+        for (int j = 0; j <Y; j++)
+        {
+            delete[] Dynamic3D[i][j];
+        }
+        delete[] Dynamic3D[i];
     }
-    delete[] Dynamic2D;
+    delete[] Dynamic3D;
     
     return 0;
 }
