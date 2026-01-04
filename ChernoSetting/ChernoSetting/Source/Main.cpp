@@ -1,34 +1,31 @@
 #include <iostream>
+#include <vector>
 
-int main() 
+class Grid2D
 {
-    const int X = 5;
-    const int Y = 5;
-    const int Z = 5;
+    int rows;
+    int cols;
+    std::vector<int> data;
 
-    int*** Dynamic3D = new int** [X];
-    for (int i = 0; i < X; i++)
+public:
+    Grid2D(int r, int c) :
+        rows(r), cols(c), data(r * c, 0) {}
+
+    int& operator() (int r, int c)
     {
-        Dynamic3D[i] = new int* [Y];
-        for (int j = 0; j < Y; j++)
-        Dynamic3D[i][j] = new int[Z];
-    }
-
-    Dynamic3D[0][0][0] = 1;
-    Dynamic3D[3][2][3] = 25;
-
-    std::cout << Dynamic3D[0][0] << '\n';
-    std::cout << Dynamic3D[3][2][3] << '\n';
-
-    for (int i = 0; i < X; i++)
-    {
-        for (int j = 0; j <Y; j++)
-        {
-            delete[] Dynamic3D[i][j];
+        if (r < 0 || r >= rows || c < 0 || c >= cols) {
+            throw std::out_of_range("Index out of bounds");
         }
-        delete[] Dynamic3D[i];
+        return data[r * cols + c];
     }
-    delete[] Dynamic3D;
-    
-    return 0;
+    int getRows() const { return rows; }
+    int getCols() const { return cols; }
+
+};
+
+int main()
+{
+    Grid2D grid(3, 3);
+    grid(0, 0) = 1;
+    grid(0, 1) = 2;
 }
