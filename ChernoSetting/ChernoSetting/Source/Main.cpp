@@ -2,15 +2,26 @@
 
 int main() 
 {
-	int static_2D[5][5] = { {1, 2, 3, 4, 5},
-							{6, 7, 8, 9, 10},
-							{11, 12, 13, 14, 15},
-							{16, 17, 18, 19, 20},
-							{21, 22, 23, 24, 25} };
+    const int Rows = 5;
+    const int Cols = 5;
 
-	//for( int (&row)[5] : static_2D) auto实质就是这个对数组的引用，加括号
-	for (auto& row : static_2D)
-		for(auto elem : row)
-		std::cout << elem << std::endl;
+    int ** Dynamic2D = new int* [Rows];
+    for (int i = 0; i < Rows; i++)
+    {
+        Dynamic2D[i] = new int[Cols];
+    }
+
+    Dynamic2D[0][0] = 1;
+    Dynamic2D[3][9] = 25;
+
+    std::cout << Dynamic2D[0][0] << std::endl;
+    std::cout << Dynamic2D[3][9] << std::endl;
+
+    for (int i = 0; i < Rows; i++)
+    {
+        delete[] Dynamic2D[i];
+    }
+    delete[] Dynamic2D;
+    
     return 0;
 }
