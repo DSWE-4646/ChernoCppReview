@@ -1,18 +1,22 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <functional>
+
+struct Player
+{
+	std::string name;
+	int score;
+};
 
 int main()
 {
-	std::vector<int> numbers = { 5, 3, 8, 1, 2 };
-	std::sort(numbers.begin(), numbers.end(), [](int a, int b) {
-		if (a == 1) return false;
-		if (b == 1) return true;
-		return a < b;
+	std::vector<Player> players = { {"Alice", 80},{"Bob", 90} };
+	std::sort(players.begin(), players.end(), [](const Player& p1, const Player& p2) {
+		return p1.score > p2.score; // Sort by score descending
 		});
-	for (const auto& num : numbers)
+
+	for (const auto& player : players)
 	{
-		std::cout << num << " ";
+		std::cout << player.name<< ":" << player.score << std::endl;
 	}
 }
