@@ -1,12 +1,19 @@
 #include <iostream>
 
+struct Entity
+{
+	int x,y;
+};
+
 int main()
 {
-	int a = 50;
+	struct Entity e;
+	e.x = 2;
+	e.y = 3;
 
-	double value = *(double*)&a;
-	double RichtigValue = a;
-	std::cout << value << std::endl;
-
+	//int* value = (int*)&e;
+	int value = *(int*)((char*)&e + sizeof(int));
+	//std::cout << value[0] << "\n" << value[1] << std::endl;
+	std::cout << value;
 	std::cin.get();
 }
