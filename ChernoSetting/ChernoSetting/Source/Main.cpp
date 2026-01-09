@@ -7,7 +7,7 @@ public:
         std::cout << "Base Constructor Called" << std::endl;
     }
 
-    ~Base()
+    virtual ~Base()
     {
         std::cout << "Base Destructor Called" << std::endl;
     }
@@ -34,7 +34,7 @@ int main()
     delete base;
 
     std::cout<<"This is Derived ==============================="<<std::endl;
-    Derived* derived = new Derived();
+    Base* derived = new Derived();
     delete derived;
 
     std::cin.get();
