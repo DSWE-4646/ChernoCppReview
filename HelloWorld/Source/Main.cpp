@@ -1,5 +1,5 @@
 #include<iostream>
-#include "log.h"
+// #include "log.h"
 
 int main()
 {
