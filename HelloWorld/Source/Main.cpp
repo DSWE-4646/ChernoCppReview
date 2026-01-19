@@ -8,7 +8,7 @@ int main()
 	
 	if(ComparisionResult)
 	{
-		std::cout << "Guten Tag" << std::endl;
+		std::cout << "Guten Tag, Hier ist VScode!" << std::endl;
 	}
 
 
