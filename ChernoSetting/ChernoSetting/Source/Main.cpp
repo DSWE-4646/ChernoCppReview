@@ -1,39 +1,31 @@
 #include <string>
-#include <fstream>
 #include <iostream>
-#include <optional>
+#include <variant>
 
-// 传统方案：返回空字符串表示失败
-std::optional<std::string> ReadFileAsString(const std::string& filepath) //1.添加Optional
+int main()
 {
-    std::ifstream file(filepath);
-    std::string result;
-    if (!file.is_open()) {
-        return {}; // 空字符串：无法区分“文件打开失败”和“文件本身为空”
-    }
-    // 读取文件内容到result...
-    file>>result;
-    file.close();
-    return result;
-}
+    std::variant<int, std::string> data;
+    data = 123;
 
-int main() {
-    //std::string data = ReadFileAsString("data.txt");
-    auto data = ReadFileAsString("data.txt");
-    //if (data.empty()) // 歧义：是文件打不开？还是文件本身是空的？
-    if (data) //2.检验Optional包裹的有效性，也可以使用data.has_value()
+    //按类型获取
+    std::cout<< "By Type:" << std::get<int>(data) << std::endl;
+    std::cout<< "Type Index is:" << data.index() << std::endl;
+    data = "Hello World";
+    std::cout << "By Type:" << std::get<std::string>(data) << std::endl;
+    std::cout << "Type Index is:" << data.index() << std::endl;
+
+    //按索引获取
+    std::cout << "By Index:" << std::get<1>(data) << std::endl;
+
+    //返回指向的指针，类型不匹配返回nullptr
+    const std::string* ptr = std::get_if<std::string>(&data);
+    if (ptr)
     {
-        std::cout << "data opened and is not empty" << std::endl; //
-        std::cout << "The data is(*data):" << *data <<std::endl; //
-        std::cout << "The data is(data.value()):" << data.value() << std::endl; //
-        std::cout << "the data is(data.value_or)" << data.value_or("数据不存在") << std::endl; //带默认值的访问
+        std::cout << "By Pointer:" << *ptr << std::endl;
     }
-    else
-    {
-        std::cout << "文件打开失败" << std::endl;
-    }
-        
-    //std::cout << data << std::endl;
+
+    
+    
     std::cin.get();
     return 0;
 }
