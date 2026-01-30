@@ -1,48 +1,45 @@
-#include "pch.h"
-#include <string_view>
+#include<iostream>
+#include<chrono>
 
-static uint32_t s_AllocCount = 1;
-
-void* operator new(size_t size)
+class Benchmark
 {
-	s_AllocCount++;
-	std::cout << "Allocating " << size << " bytes\n";
-	return malloc(size);
-}
+public:
+	Benchmark()
+		: m_StartTimepoint(std::chrono::high_resolution_clock::now())
+	{
 
-void operator delete(void* ptr)
-{
-	s_AllocCount--;
-	std::cout << "Freeing memory\n";
-	free(ptr);
-}
+	}
 
+	~Benchmark()
+	{
+		Timer();
+	}
+private:
+	std::chrono::time_point<std::chrono::high_resolution_clock> m_StartTimepoint;
+	std::chrono::high_resolution_clock::time_point m_EndTimepoint;
 
-void PrintFirstName(std::string_view name)
-{
-	std::cout << "First name: " <<name << std::endl;
-}
+	void Timer()
+	{
+		m_EndTimepoint = std::chrono::high_resolution_clock::now();
+		auto start = std::chrono::time_point_cast<std::chrono::duration<float, std::micro>>(m_StartTimepoint);
+		auto end = std::chrono::time_point_cast<std::chrono::duration<float, std::micro>>(m_EndTimepoint);
+		auto duration = end - start;
+		float us = duration.count();
+		float ms = us / 1000.0f;
+		std::cout << "耗时：" << us << "us (" << ms << "ms)" << std::endl;
 
-void PrintSecondName(std::string_view name)
-{
-	std::cout << "Second name: " <<name << std::endl;
-}
+	}
+};
 
 int main()
 {
-	std::string fullname = "SiberianSledCat";
-	std::string_view FirstName(fullname.c_str(), 6);
-	std::string_view SecondName (fullname.c_str() + 7, 13);
-	PrintFirstName(FirstName);
-	PrintFirstName(FirstName);
-	//std::string FirstName = fullname.substr(0, 7);
-	//PrintFirstName(FirstName);
-	//PrintSecondName(fullname.substr(7, 13));
-
-	//PrintFirstName("SiberianSledCat");
-	//PrintSecondName("SledCat");
-	std::cout << "Allocations: " << s_AllocCount << std::endl;
-
-	std::cin.get();
+	long long value = 0;
+	{
+		Benchmark timer;
+		for (int i = 0; i < 1000000; ++i) {
+			value += 2;
+		}
+	}
+	std::cout << "最终结果：" << value << std::endl;
 	return 0;
 }
