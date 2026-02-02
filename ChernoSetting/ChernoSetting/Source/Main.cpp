@@ -1,5 +1,6 @@
 #include<iostream>
 #include<chrono>
+#include<vector>
 
 class Benchmark
 {
@@ -31,15 +32,46 @@ private:
 	}
 };
 
+class Vector2D
+{
+public:
+	float XPosition = 0.f;
+	float YPosition = 0.f;
+};
+
 int main()
 {
+	const int count = 1000000;
 	long long value = 0;
 	{
 		Benchmark timer;
-		for (int i = 0; i < 1000000; ++i) {
-			value += 2;
+		std::vector< std::shared_ptr<Vector2D> > TestSharedPtr;
+		TestSharedPtr.reserve(count);
+		for (int i = 0; i < count; ++i) {
+			TestSharedPtr.emplace_back(std::make_shared<Vector2D>());
 		}
+		std::cout << "SharedPtr ";
 	}
-	std::cout << "×îÖÕ½á¹û£º" << value << std::endl;
+
+	{
+		Benchmark timer;
+		std::vector< std::unique_ptr<Vector2D> > TestUniquePtr;
+		TestUniquePtr.reserve(count);
+		for (int i = 0; i < count; ++i) {
+			TestUniquePtr.emplace_back(std::make_unique<Vector2D>());
+		}
+		std::cout << "UniquePtr ";
+	}
+
+	{
+		Benchmark timer;
+		std::vector< std::shared_ptr<Vector2D> > TestSharedAndNewPtr;
+		TestSharedAndNewPtr.reserve(count);
+		for (int i = 0; i < count; ++i) {
+			TestSharedAndNewPtr.emplace_back(std::shared_ptr<Vector2D>(new Vector2D()));
+		}
+		std::cout << "SharedPtr and New ";
+	}
+
 	return 0;
 }
